@@ -1,0 +1,5 @@
+config/*
+!config/defau;t.*
+npm-debug.log
+node_modules
+coverage
