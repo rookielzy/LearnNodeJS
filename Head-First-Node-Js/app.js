@@ -1,36 +1,15 @@
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+const Koa = require('koa');
 
-// 监听器 #1
-var listener1 = function listener1() {
-   console.log('监听器 listener1 执行。');
-}
+// 创建一个Koa对象表示web app本身:
+const app = new Koa();
 
-// 监听器 #2
-var listener2 = function listener2() {
-  console.log('监听器 listener2 执行。');
-}
+// 对于任何请求，app将调用该异步函数处理请求：
+app.use(async (ctx, next) => {
+    await next();
+    ctx.response.type = 'text/html';
+    ctx.response.body = '<h1>Hello, koa2!</h1>';
+});
 
-// 绑定 connection 事件，处理函数为 listener1 
-eventEmitter.addListener('connection', listener1);
-
-// 绑定 connection 事件，处理函数为 listener2
-eventEmitter.on('connection', listener2);
-
-var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
-console.log(eventListeners + " 个监听器监听连接事件。");
-
-// 处理 connection 事件 
-eventEmitter.emit('connection');
-
-// 移除监绑定的 listener1 函数
-eventEmitter.removeListener('connection', listener1);
-console.log("listener1 不再受监听。");
-
-// 触发连接事件
-eventEmitter.emit('connection');
-
-eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
-console.log(eventListeners + " 个监听器监听连接事件。");
-
-console.log("程序执行完毕。");
+// 在端口3000监听:
+app.listen(3000);
+console.log('app started at port 3000...');
