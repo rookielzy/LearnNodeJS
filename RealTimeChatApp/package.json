@@ -1,0 +1,21 @@
+{
+  "name": "real-time-chat-app",
+  "version": "1.0.0",
+  "description": "Real Time Chat App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "socket"
+  ],
+  "author": "rookielzy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
+}

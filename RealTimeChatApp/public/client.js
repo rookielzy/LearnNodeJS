@@ -1,0 +1,20 @@
+// initializing socket, connection on server Connect to server using io.connect
+const socket = io.connect('http://localhost:7777');
+socket.on('connect', function(data) {
+    // If Connect succeed emit a message
+    socket.emit('join', 'Hello server from client');
+});
+
+// listener for 'thread' event, which updates messages
+
+socket.on('thread', function(data) {
+    $('#thread').append('<li>' + data + '</li>');
+});
+
+// sends message to server, resets & prevents default form action
+$('form').submit(function() {
+    var message = $('#message').val();
+    socket.emit('messages', message);
+    this.reset();
+    return false;
+});
