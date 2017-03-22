@@ -1,3 +1,11 @@
 body {
-    background: red;
+    background: skyblue;
+}
+
+#qwe {
+    background-image: url(img/logo.jpg);
+}
+
+#asd {
+    background-image: url(img/box.png);
 }
