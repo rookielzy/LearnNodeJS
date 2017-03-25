@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+import Store from './components/store';
 
 export default {
   data: function() {
@@ -27,6 +27,7 @@ export default {
           isFinished: true
         }
       ],
+      items: Store.fetch() == null ? [] : Store.fetch(),
       newItem: ''
     }
   },
@@ -39,6 +40,14 @@ export default {
         label: this.newItem,
         isFinished: false
       })
+    }
+  },
+  watch: {
+    items: {
+      handler: function(items) {
+        Store.save(items);
+      },
+      deep: true
     }
   }
 }
