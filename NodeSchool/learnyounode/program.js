@@ -1,6 +1,4 @@
-var sum = 0;
-for (let i = 2; i < process.argv.length; i++) {
-    sum += Number(process.argv[i]);
-}
+const fs = require("fs");
 
-console.log(sum);
+var contentArray = (fs.readFileSync(process.argv[2])).toString().split('\n');
+console.log(contentArray.length - 1);
