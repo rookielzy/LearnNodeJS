@@ -1,9 +1,13 @@
-const fs = require("fs");
-const file = process.argv[2];
+const fs = require('fs');
+const path = require('path');
 
-fs.readFile(file, (err, data) => {
-  if (err) throw err;
-
-  let contents = data.toString().split('\n');
-  console.log(contents.length - 1);
+fs.readdir(process.argv[2], (err, list) => {
+  if (err) {
+    console.log(err);
+  }
+  list.filter(file => {
+    return path.extname(file) === '.' + process.argv[3]
+  }).forEach(file => {
+    console.log(file);
+  })
 });
