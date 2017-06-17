@@ -5,3 +5,7 @@ exports.homePage = (req, res) => {
 exports.addStore = (req, res) => {
     res.render('editStore');
 }
+
+exports.createStore = (req, res) => {
+    res.json(req.body);
+}
