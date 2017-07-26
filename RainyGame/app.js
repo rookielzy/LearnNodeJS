@@ -12,3 +12,17 @@ app.get('/', (req, res) => {
 app.use('/client', express.static(__dirname + '/client'))
 
 server.listen(2000)
+
+const io = require('socket.io')(server,{})
+
+io.sockets.on('connection', socket => {
+    console.log('socket connection')
+
+    socket.on('happy', data => {
+        console.log('happy together' + data.reason)
+    })
+
+    socket.emit('getup', {
+        msg: 'Lets play DotA2'
+    })
+})
