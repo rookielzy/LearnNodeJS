@@ -7,14 +7,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     </head>
     <body>
-        Hello World
+        <canvas id="canvas" width="500" height="500" style="border: 1px solid #000"></canvas>
         <script>
             const socket = io()
-            socket.emit('happy', {
-                reason: 'DotA2'
-            })
-            socket.on('getup', data => {
-                console.log(data.msg)
+            const ctx = document.querySelector('canvas').getContext('2d')
+            socket.on('newPosition', data => {
+                ctx.clearRect(0, 0, 500, 500)
+                for (let i = 0; i < data.length; i++) {
+                    ctx.fillText('P', data[i].x, data[i].y)
+                }
             })
         </script>
     </body>
