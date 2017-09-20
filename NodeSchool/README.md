@@ -21,3 +21,7 @@
 ## First Async I/O
 ### `fs.readFile(path[, options], callback)`
 如果未指定字符编码，则返回原始的 `buffer`。
+
+## HTTP Collector
+### `http.get(options[, callback])`
+想要获取完整信息，需要利用条件语句使得程序在收集完整的信息后再进行回调函数的操作。
