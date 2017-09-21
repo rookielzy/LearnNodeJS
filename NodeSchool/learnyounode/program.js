@@ -1,19 +1,30 @@
 const http = require("http");
+const urls = [...process.argv].slice(2);
+const reg = /^(1|4|5)/;
+const results = [];
+let count = 0;
+let rawData = '';
+urls.forEach(url => {
+  http.get(url, res => {
+    const { statusCode } = res;
+    if (!reg.test(statusCode.toString())) {
+      res.on('data', chunk => {
+        rawData += chunk;
+      });
+      res.on('end', () => {
+        results.push(rawData.toString());
+        count++;
 
-http.get(process.argv[2], res => {
-  const { statusCode } = res;
-  if (statusCode !== 200) {
-    console.error('Not 200');
-  } else {
-    let rawData = '';
-    res.on('data', chunck => { rawData += chunck; });
-    res.on('end', () => {
-      rawData = rawData.toString();
-      console.log(rawData.length);
-      console.log(rawData);
-    });
-  }
-
-}).on('error', (e) => {
-  console.error(`错误: ${e.message}`);
+        if (count === 3) {
+          results.forEach(result => console.log(result));
+        }
+      });
+    } else {
+      console.error('Service Error');
+      res.resume();
+      return;
+    }
+  }).on('error', e => {
+    console.error(e.message);
+  });
 });
